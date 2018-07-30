@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Horizontal List View</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dummy_item_desc_title">Organic Apples</string>
+    <string name="dummy_item_price">$10</string>
+    <string name="add_to_cart_button_text">Add to Cart</string>
+    <string name="buy_now_button_text">Buy Now</string>
+    <string name="fruits_text">Fruits</string>
+    <string name="vege_text">Vegetables</string>
+</resources>
