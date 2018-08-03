@@ -11,13 +11,13 @@ This repository includes the projects that I implemented to practice the exam co
 - [ ] Debug and fix issues with an app's functional behavior and usability
 
 **User interface (UI) and app functionality**
-- [ ] Create an Activity that displays a layout
-- [ ] Construct a UI with ConstraintLayout
+- [x] Create an Activity that displays a layout
+- [x] Construct a UI with ConstraintLayout
 - [ ] Create a custom view class and add it to a layout
 - [ ] Add accessibility hooks to a custom view
 - [ ] Apply content descriptions to views for accessibility
 - [ ] Implement a custom app theme
-- [ ] Display items in a RecyclerView
+- [x] Display items in a RecyclerView
 - [ ] Bind local data to a RecyclerView list using the paging library
 - [ ] Implement menu-based or drawer navigation
 - [ ] Localize the app
