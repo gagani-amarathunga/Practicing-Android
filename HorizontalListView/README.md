@@ -8,7 +8,7 @@
 - [x] Display items in a RecyclerView
 
 ## Screenshots
-![Horizontal ListView](https://www.behance.net/gallery/68918033/Practicing-Android-Horizontal-List-View)
+![Horizontal ListView](https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/63e09d68918033.5b6dae7e4b3cd.png)
 
 
 
