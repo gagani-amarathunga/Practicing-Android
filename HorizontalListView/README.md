@@ -8,7 +8,7 @@
 - [x] Display items in a RecyclerView
 
 ## Screenshots
-![Horizontal ListView](https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/63e09d68918033.5b6dae7e4b3cd.png)
+![Horizontal ListView](https://mir-s3-cdn-cf.behance.net/project_modules/fs/77d4cb68918033.5b6db8bd5bb60.jpg)
 
 
 
