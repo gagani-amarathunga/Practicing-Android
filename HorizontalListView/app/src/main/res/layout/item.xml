@@ -4,47 +4,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_view"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/item_view_horizontal_margin"
-    android:layout_marginRight="@dimen/item_view_horizontal_margin"
-    android:layout_marginTop="@dimen/item_view_vertical_margin"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/margin_4dp"
     android:background="@android:color/darker_gray"
     app:cardCornerRadius="4dp"
-
     app:layout_constraintLeft_toLeftOf="parent"
-
     app:layout_constraintTop_toTopOf="parent"
     tools:style="@style/CardView">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/padding_4dp">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/itemImage"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/image_desc"
             android:scaleType="centerCrop"
             android:src="@drawable/apples"
             app:layout_constraintBottom_toTopOf="@id/itemName"
             app:layout_constraintLeft_toLeftOf="parent"
-
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/itemName"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_4dp"
-            android:gravity="center"
-            android:text="Item Name"
-            android:textColor="@android:color/black"
-
+            android:layout_marginLeft="@dimen/margin_4dp"
+            android:layout_marginStart="@dimen/margin_4dp"
+            android:layout_marginTop="@dimen/margin_8dp"
+            android:gravity="start"
+            android:text="@string/dummy_item_desc_title"
+            android:textColor="@color/textViewFontColor"
+            app:fontFamily="@font/roboto_condensed_regular"
+            app:layout_constraintBottom_toTopOf="@+id/itemPrice"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-
+            app:layout_constraintStart_toStartOf="@+id/itemImage"
             app:layout_constraintTop_toBottomOf="@id/itemImage" />
 
+        <TextView
+            android:id="@+id/itemPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_4dp"
+            android:gravity="start"
+            android:text="@string/dummy_item_price"
+            android:textColor="@android:color/background_dark"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/itemName"
+            app:layout_constraintTop_toBottomOf="@+id/itemName" />
+
+        <TextView
+            android:id="@+id/itemQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginStart="4dp"
+            android:text="@string/item_quantity"
+            android:textSize="12sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/itemPrice"
+            app:layout_constraintStart_toEndOf="@+id/itemPrice" />
 
     </android.support.constraint.ConstraintLayout>
 
