@@ -1,5 +1,6 @@
 package com.android.horizontallistview.ui;
 
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -24,6 +25,8 @@ public class ItemsFragment extends Fragment {
     private String itemNames[];
     // Image IDs of the item images
     private int itemImages[];
+    // Prices of the items
+    private int itemPrices[];
 
     public ItemsFragment() {
     }
@@ -43,27 +46,29 @@ public class ItemsFragment extends Fragment {
             case 1: // Getting vegetable item details
                 itemNames = dataUtils.getVegetableItemNames();
                 itemImages = dataUtils.getVegetableImages();
+                itemPrices = dataUtils.getVegetablePrices();
                 break;
+
             default: // Getting fruit items details
                 itemNames = dataUtils.getFruitItemNames();
                 itemImages = dataUtils.getFruitImages();
+                itemPrices = dataUtils.getFruitPrices();
                 break;
         }
 
-        // Addding Item objects to the list view
+        // Adding Item objects to the list view
         for (int i = 0; i < itemNames.length; i++) {
             Item item = new Item();
             item.itemName = itemNames[i];
             item.imageResourceId = itemImages[i];
+            item.itemPrice = itemPrices[i];
             listOfItems.add(item);
         }
-
-        getActivity().setTitle("Organic Cart");
     }
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.items_list, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.items_card_view);
         recyclerView.setHasFixedSize(true);

@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import com.android.horizontallistview.R;
-import com.android.horizontallistview.ui.ItemsFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing an ID to identify the fragment for vegetable items
         Bundle bundle = new Bundle();
         bundle.putInt("ID", 1);
+
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment fragmentFruits = fragmentManager.findFragmentById(R.id.fragmentFruits);
