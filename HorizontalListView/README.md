@@ -6,3 +6,9 @@
 - [x] Create an Activity that displays a layout
 - [x] Construct a UI with ConstraintLayout
 - [x] Display items in a RecyclerView
+
+## Screenshots
+![Horizontal ListView](/Desktop/horizontallv.png)
+
+
+
