@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="preloaded_fonts" translatable="false">
-        <item>@font/adamina</item>
-        <item>@font/allerta</item>
-        <item>@font/asap</item>
-        <item>@font/averia_gruesa_libre</item>
+        <item>@font/roboto_condensed_regular</item>
     </array>
 </resources>
