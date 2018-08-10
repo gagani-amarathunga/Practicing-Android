@@ -2,7 +2,8 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginBottom="@dimen/margin_32dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,34 +13,34 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/padding_4dp"
+            android:padding="@dimen/padding_8dp"
             android:text="@string/fruits_text"
-            android:textAllCaps="true"
-            android:textColor="@android:color/holo_red_dark"
-            android:textSize="18sp" />
+            android:textColor="@color/textViewFontColor"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <fragment
             android:id="@+id/fragmentFruits"
             android:name="com.android.horizontallistview.ui.ItemsFragment"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="1"
             tools:layout="@layout/items_list" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/padding_4dp"
+            android:padding="@dimen/padding_8dp"
             android:text="@string/vege_text"
-            android:textAllCaps="true"
-            android:textColor="@android:color/holo_red_dark"
-            android:textSize="18sp" />
+            android:textColor="@color/textViewFontColor"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <FrameLayout
             android:id="@+id/fragmentVegetables"
             android:name="com.android.horizontallistview.ItemsFragment"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1" />
     </LinearLayout>
 
