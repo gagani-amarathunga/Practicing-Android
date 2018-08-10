@@ -9,7 +9,10 @@
 
 ## Usage
 Horizontally scrollabel list view using,
-* RecyclerView * CardView * Fragment * ConstraintLayout
+* RecyclerView 
+* CardView 
+* Fragment 
+* ConstraintLayout
 
 
 ## Screenshots
