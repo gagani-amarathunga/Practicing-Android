@@ -39,5 +39,4 @@ public interface NoteDao {
     /* Getting a note by ID to update */
     @Query("SELECT * FROM note WHERE note_id = :id")
     LiveData<NoteEntry> loadNoteById(int id);
-
 }
