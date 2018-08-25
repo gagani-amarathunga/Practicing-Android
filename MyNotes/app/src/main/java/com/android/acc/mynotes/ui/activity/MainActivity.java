@@ -5,7 +5,6 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
@@ -16,10 +15,10 @@ import android.support.v7.widget.helper.ItemTouchHelper.SimpleCallback;
 import android.util.Log;
 import android.view.View;
 
+import com.android.acc.mynotes.MyNotesApplication;
 import com.android.acc.mynotes.util.AppExecutors;
 import com.android.acc.mynotes.viewmodel.MainViewModel;
 import com.android.acc.mynotes.R;
-import com.android.acc.mynotes.database.AppDatabase;
 import com.android.acc.mynotes.database.NoteEntry;
 import com.android.acc.mynotes.ui.NoteAdapter;
 
@@ -27,14 +26,15 @@ import java.util.List;
 
 import static android.support.v7.widget.DividerItemDecoration.VERTICAL;
 
-public class MainActivity extends AppCompatActivity implements NoteAdapter.ItemClickListener {
+public class MainActivity extends BaseActivity implements NoteAdapter.ItemClickListener {
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
     // Member variables for the adapter and RecyclerView
     private RecyclerView mRecyclerView;
     private NoteAdapter mAdapter;
-    private AppDatabase mDb;
+
+    MainViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +42,10 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.ItemC
         setContentView(R.layout.activity_main);
 
         mRecyclerView = findViewById(R.id.recyclerViewNotes);
+
+        ((MyNotesApplication) getApplication()).getApplicationComponent().inject(this);
+
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel.class);
 
         // Initialize the adapter and attach it to the RecyclerView
         mAdapter = new NoteAdapter(this, this);
@@ -68,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.ItemC
                     public void run() {
                         int position = viewHolder.getAdapterPosition();
                         List<NoteEntry> notes = mAdapter.getNotes();
-                        mDb.noteDao().deleteNote(notes.get(position));
+                        viewModel.deleteNote(notes.get(position));
                     }
                 });
             }
@@ -90,8 +94,6 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.ItemC
             }
         });
 
-        mDb = AppDatabase.getsInstance(getApplicationContext());
-
         setupViewModel();
     }
 
@@ -100,8 +102,6 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.ItemC
      *
      * Uses LiveData and Lifecycle */
     private void setupViewModel() {
-        MainViewModel viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-
         /* getNotes() method returns LiveData that executed in background to handle DB tasks in background and
          * as it returns LiveData, observe method can be used. Observer takes a lifecycle owner as a parameter (this).
          *
@@ -125,6 +125,5 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.ItemC
         intent.putExtra(AddNoteActivity.EXTRA_NOTE_ID, itemId);
         startActivity(intent);
     }
-
 }
 
