@@ -6,23 +6,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.acc.mynotes.MyNotesApplication;
 import com.android.acc.mynotes.viewmodel.AddNoteViewModel;
-import com.android.acc.mynotes.viewmodel.AddNoteViewModelFactory;
 import com.android.acc.mynotes.util.AppExecutors;
 import com.android.acc.mynotes.R;
 import com.android.acc.mynotes.database.AppDatabase;
 import com.android.acc.mynotes.database.NoteEntry;
+import com.android.acc.mynotes.viewmodel.NoteViewModel;
 
 import java.util.Date;
 
-public class AddNoteActivity extends AppCompatActivity {
+public class AddNoteActivity extends BaseActivity {
 
     private EditText mNoteContentEditText;
     private Button mButton;
@@ -41,16 +41,21 @@ public class AddNoteActivity extends AppCompatActivity {
     private AppDatabase mDb;
     private Context context;
 
+    private AddNoteViewModel mAddNoteViewModel; // Adding a note
+    private NoteViewModel mNoteViewModel; // Updating a note
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_note);
 
-        context = this;
-        initView();
+        ((MyNotesApplication) getApplication()).getApplicationComponent().inject(this);
 
-        // Getting the instance of the DB
-        mDb = AppDatabase.getsInstance(getApplicationContext());
+        context = this;
+        mAddNoteViewModel = ViewModelProviders.of(this, viewModelFactory).get(AddNoteViewModel.class);
+        mNoteViewModel = ViewModelProviders.of(this, viewModelFactory).get(NoteViewModel.class);
+
+        initView();
 
         if (savedInstanceState != null && savedInstanceState.containsKey(INSTANCE_NOTE_ID)) {
             mNoteId = savedInstanceState.getInt(INSTANCE_NOTE_ID, DEFAULT_NOTE_ID);
@@ -66,17 +71,12 @@ public class AddNoteActivity extends AppCompatActivity {
                 // Getting the Item ID of the clicked list item
                 mNoteId = intent.getIntExtra(EXTRA_NOTE_ID, DEFAULT_NOTE_ID);
 
-                // Using the ViewModel to cache notes not to requery at a rotation
-                AddNoteViewModelFactory factory = new AddNoteViewModelFactory(mDb, mNoteId);
-
-                final AddNoteViewModel viewModel = ViewModelProviders.of(this, factory).get(AddNoteViewModel.class);
-
-                viewModel.getNote().observe(this, new Observer<NoteEntry>() {
+                mNoteViewModel.getNote(mNoteId).observe(this, new Observer<NoteEntry>() {
                     @Override
                     public void onChanged(@Nullable NoteEntry noteEntry) {
-                        viewModel.getNote().removeObserver(this);
-                        // Setting UI with new values
-                        populateUI(noteEntry);
+                        if (noteEntry != null) {
+                            populateUI(noteEntry);
+                        }
                     }
                 });
             }
@@ -135,10 +135,10 @@ public class AddNoteActivity extends AppCompatActivity {
             @Override
             public void run() {
                 if (mNoteId == DEFAULT_NOTE_ID) { // Insert new note
-                    mDb.noteDao().insertNote(note);
+                    mAddNoteViewModel.addNewNoteToDatabase(note);
                 } else { // Update note
                     note.setNote_id(mNoteId);
-                    mDb.noteDao().updateNote(note);
+                    mNoteViewModel.updateNoteInDatabase(note);
                 }
             }
         });
@@ -154,6 +154,5 @@ public class AddNoteActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 }
