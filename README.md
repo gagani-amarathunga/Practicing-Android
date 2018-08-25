@@ -29,7 +29,7 @@ This repository includes the projects that I implemented to practice the exam co
 - [x] Define data using Room entities
 - [x] Access Room database with data access object (DAO)
 - [x] Observe and respond to changing data using LiveData
-- [ ] Use a Repository to handle data operations
+- [x] Use a Repository to handle data operations
 - [ ] Read and parse raw resources or asset files
 - [ ] Create persistent preference data from user input
 - [ ] Change the behavior of the app based on user preferences
