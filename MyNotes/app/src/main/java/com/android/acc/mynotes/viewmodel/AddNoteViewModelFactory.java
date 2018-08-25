@@ -4,24 +4,35 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 
-import com.android.acc.mynotes.database.AppDatabase;
+import com.android.acc.mynotes.data.NoteRepository;
 
-/* ViewModelFactory class to pass the the ID of the note to ViewModel when updating a note */
-public class AddNoteViewModelFactory extends ViewModelProvider.NewInstanceFactory {
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
-    private final AppDatabase mDb;
-    private final int mNoteId; // ID of the note that needs to be updated
+@Singleton
+public class AddNoteViewModelFactory implements ViewModelProvider.Factory {
 
-    public AddNoteViewModelFactory(AppDatabase database, int noteId) {
-        mDb = database;
-        mNoteId = noteId;
+    private final NoteRepository repository;
+
+    @Inject
+    public AddNoteViewModelFactory(NoteRepository repository) {
+        this.repository = repository;
     }
 
-    // @return an instance of AddNoteViewModel class that uses the parameters mDb and mNoteId in its constructor.
+    /* Returns instances of ViewModel classes. */
+    @SuppressWarnings("unchecked")
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T) new AddNoteViewModel(mDb, mNoteId);
-    }
 
+        if (modelClass.isAssignableFrom(AddNoteViewModel.class)) {
+            return (T) new AddNoteViewModel(repository);
+        } else if (modelClass.isAssignableFrom(NoteViewModel.class)) {
+            return (T) new NoteViewModel(repository);
+        } else if (modelClass.isAssignableFrom(MainViewModel.class)) {
+            return (T) new MainViewModel(repository);
+        } else {
+            throw new IllegalArgumentException("ViewModel not found");
+        }
+    }
 }

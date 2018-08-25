@@ -1,41 +1,38 @@
 package com.android.acc.mynotes.viewmodel;
 
-import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
-import android.support.annotation.NonNull;
-import android.util.Log;
+import android.arch.lifecycle.ViewModel;
+import android.os.AsyncTask;
 
-import com.android.acc.mynotes.database.AppDatabase;
+import com.android.acc.mynotes.data.NoteRepository;
 import com.android.acc.mynotes.database.NoteEntry;
 
 import java.util.List;
 
-/* Adding ViewModel to the DB operation of getting all the notes related with MainActivity.
- *
- * This class extends by AndroidViewModel to implement ViewModel to cache data.
- * It prevents memory leaks occurs at rotations due to recreation of the Activity. */
-public class MainViewModel extends AndroidViewModel {
+/* Display all notes of the database and deleting a note in the database. */
+public class MainViewModel extends ViewModel {
 
-    // Constant for logging
-    private static final String TAG = MainViewModel.class.getSimpleName();
+    private NoteRepository repository;
 
-    // List of NoteEntry objects wrapped in a LiveData object to be cached using ViewModel
-    private LiveData<List<NoteEntry>> notes;
-
-    public MainViewModel(@NonNull Application application) {
-        super(application);
-
-        // Instance of the database
-        AppDatabase database = AppDatabase.getsInstance(this.getApplication());
-        Log.d(TAG, "Retrieving notes from the database.");
-        // Initialize the member variable
-        notes = database.noteDao().loadAllNotes();
+    public MainViewModel(NoteRepository repository) {
+        this.repository = repository;
     }
 
-    /* Returns all the notes in the database */
     public LiveData<List<NoteEntry>> getNotes() {
-        return notes;
+        return repository.loadAllNotes();
     }
 
+    public void deleteNote(NoteEntry noteEntry) {
+        DeleteNoteAsyncTask deleteNote = new DeleteNoteAsyncTask();
+        deleteNote.execute(noteEntry);
+    }
+
+    private class DeleteNoteAsyncTask extends AsyncTask<NoteEntry, Void, Void> {
+
+        @Override
+        protected Void doInBackground(NoteEntry... noteEntry) {
+            repository.deleteNote(noteEntry[0]);
+            return null;
+        }
+    }
 }
