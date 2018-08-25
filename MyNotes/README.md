@@ -8,6 +8,7 @@ A simple notepad app that helps to keep track of small notes in day-to-day life 
 - [x] Define data using Room entities
 - [x] Access Room database with data access object (DAO)
 - [x] Observe and respond to changing data using LiveData
+- [x] Use a Repository to handle data operations
 
 ## Usage
 * RecyclerView (Staggered Grid Layout)
@@ -16,6 +17,7 @@ A simple notepad app that helps to keep track of small notes in day-to-day life 
 * LiveData
 * ViewModel
 * Lifecycle
+* Dagger 2.x (Dependency Injection) 
 
 ## Screenshots
 All the notes are shown in a Staggered Grid Layout. A note can be added by clicking on the floating action button. A note can be updated by clicking on the note that needs to be updated. 
