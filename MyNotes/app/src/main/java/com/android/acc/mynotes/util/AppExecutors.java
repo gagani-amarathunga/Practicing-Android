@@ -33,7 +33,7 @@ public class AppExecutors {
         if (sInstance == null) {
             synchronized (LOCK) {
                 /*diskIO is a single thread executor which ensures that db transactions are done in order.
-                * networkIO is a pool of 3 threads which allow us to run different threads simultaneously while controlling the num of threads.
+                 * networkIO is a pool of 3 threads which allow us to run different threads simultaneously while controlling the num of threads.
                  * */
                 sInstance = new AppExecutors(Executors.newSingleThreadExecutor(),
                         Executors.newFixedThreadPool(3),
@@ -65,5 +65,4 @@ public class AppExecutors {
             mainThreadHandler.post(command);
         }
     }
-
 }

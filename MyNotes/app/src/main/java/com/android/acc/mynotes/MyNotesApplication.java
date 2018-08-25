@@ -1,51 +1,33 @@
 package com.android.acc.mynotes;
 
-import android.app.Activity;
 import android.app.Application;
-import android.os.Bundle;
 
+import com.android.acc.mynotes.dependencyinjection.ApplicationComponent;
+import com.android.acc.mynotes.dependencyinjection.ApplicationModule;
+import com.android.acc.mynotes.dependencyinjection.DaggerApplicationComponent;
+import com.android.acc.mynotes.dependencyinjection.RoomModule;
+
+/* Entry point to the application. */
 public class MyNotesApplication extends Application {
 
-    static Activity mActivity;
+    private ApplicationComponent applicationComponent;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
-            @Override
-            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
 
-            }
+        /* Initialization of Dagger through a builder to given modules */
+        applicationComponent = DaggerApplicationComponent
+                .builder()
+                .applicationModule(new ApplicationModule(this))
+                .roomModule(new RoomModule(this))
+                .build();
 
-            @Override
-            public void onActivityStarted(Activity activity) {
-                mActivity = activity;
-            }
+        // Injecting into MyNotesApplication
+        applicationComponent.inject(this);
+    }
 
-            @Override
-            public void onActivityResumed(Activity activity) {
-                mActivity = activity;
-            }
-
-            @Override
-            public void onActivityPaused(Activity activity) {
-                mActivity = null;
-            }
-
-            @Override
-            public void onActivityStopped(Activity activity) {
-
-            }
-
-            @Override
-            public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-
-            }
-
-            @Override
-            public void onActivityDestroyed(Activity activity) {
-
-            }
-        });
+    public ApplicationComponent getApplicationComponent() {
+        return applicationComponent;
     }
 }
