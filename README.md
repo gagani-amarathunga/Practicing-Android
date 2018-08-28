@@ -5,8 +5,8 @@ This repository includes the projects that I implemented to practice the exam co
 
 ## Exam Content 
 **Testing and debugging**
-- [ ] Write and execute local JVM unit tests
-- [ ] Write and execute Android UI tests
+- [ ] Write and execute local JVM unit tests (ongoing)
+- [ ] Write and execute Android UI tests (ongoing)
 - [ ] Use the system log to output debug information
 - [ ] Debug and fix issues with an app's functional behavior and usability
 
