@@ -19,6 +19,25 @@ android {
         }
     }
 
+    flavorDimensions "mock"
+
+    productFlavors {
+        mock {
+            applicationIdSuffix = ".mock"
+            dimension "mock"
+        }
+        prod {
+
+        }
+    }
+
+    // Result of the every test logging
+    testOptions.unitTests.all {
+        testLogging {
+            events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+        }
+    }
+
 }
 
 dependencies {
@@ -45,18 +64,32 @@ dependencies {
     implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
 
     // Dagger dependencies
-    implementation "com.google.dagger:dagger:2.11"
-    annotationProcessor "com.google.dagger:dagger-compiler:2.11"
+    implementation "com.google.dagger:dagger:2.16"
+    annotationProcessor "com.google.dagger:dagger-compiler:2.16"
     compileOnly 'javax.annotation:jsr250-api:1.0'
     implementation 'javax.inject:javax.inject:1'
 
+    // Local unit test dependencies
     testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:2.7.6'
+    testImplementation 'org.hamcrest:hamcrest-library:1.3'
+    testImplementation "org.powermock:powermock-module-junit4:1.6.4"
+    testImplementation "org.powermock:powermock-api-mockito:1.6.4"
 
     // Espresso Testing-only dependencies
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation('com.android.support.test.espresso:espresso-contrib:3.0.2') {
+        exclude group: 'com.android.support', module: 'appcompat'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude module: 'recyclerview-v7'
+    }
+    androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-accessibility:3.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-web:3.0.2'
+    androidTestImplementation 'com.android.support.test.espresso.idling:idling-concurrent:3.0.2'
+
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
+    androidTestImplementation "android.arch.core:core-testing:1.1.1"
 
-    // Mockito framework
-    testImplementation 'org.mockito:mockito-core:1.10.19'
 }
