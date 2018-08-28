@@ -10,6 +10,10 @@ A simple notepad app that helps to keep track of small notes in day-to-day life 
 - [x] Observe and respond to changing data using LiveData
 - [x] Use a Repository to handle data operations
 
+**Testing and debugging**
+- [ ] Write and execute local JVM unit tests (ongoing)
+- [ ] Write and execute Android UI tests (ongoing)
+
 ## Usage
 * RecyclerView (Staggered Grid Layout)
 * CardView 
@@ -18,6 +22,7 @@ A simple notepad app that helps to keep track of small notes in day-to-day life 
 * ViewModel
 * Lifecycle
 * Dagger 2.x (Dependency Injection) 
+* Espresso (UI tests)
 
 ## Screenshots
 All the notes are shown in a Staggered Grid Layout. A note can be added by clicking on the floating action button. A note can be updated by clicking on the note that needs to be updated. 
